@@ -1,6 +1,7 @@
 # 🔮Quartum
 ## Project
-This is the project of a simple web game to learn JS and styling. 
+This is the project of a simple web game to learn JS and styling.
+[you can plan here](https://kubickipi314.github.io/Quartum/).
 ## Rules
 It is a simple tic-tac-toe based game. One place a sign on one of four
 boards, to decide where it's adversary is teleported. The winner is
