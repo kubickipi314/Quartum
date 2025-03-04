@@ -100,7 +100,7 @@ main {
   box-shadow: 5px 5px 1px rgb(22, 22, 22);
   border: 3px, rgb(22, 22, 22), solid;
   transition: 0.2s;
-  font-size: 150%;
+  font-size: 5vh;
   color:rgb(18, 18, 18)
 }
 
@@ -110,7 +110,7 @@ main {
   margin: 1px;
   box-shadow: 6px 6px 1px rgb(22, 22, 22);
   background-color: rgb(55, 55, 55);
-  font-size: 190%;
+  font-size: 6vh;
 }
 
 .pannel {
