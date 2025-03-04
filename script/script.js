@@ -18,7 +18,7 @@ let gameState = {
         if (this.currentPlayer === "X")
             this.currentPlayer = "O";
         else this.currentPlayer = "X";
-        updateCurrentPlayer();
+        updateGameInfo(`Current Player: ${this.currentPlayer}`);
     },
 
     isFieldAvl(row, col) {
@@ -39,7 +39,10 @@ let gameState = {
         this.board[row][col] = this.currentPlayer;
         updateButton(row, col, this.currentPlayer);
         
-        this.checkEnd();
+        if (this.checkEnd(row, col)) {
+          clearBoards();
+          return;
+        }
 
         this.swapPlayer();
         this.setCurrentBoard(row, col);
@@ -72,10 +75,85 @@ let gameState = {
     },
 
     checkEnd(row, col) {
-      if (this.moveNumber === 16) {
-        console.log("end after 16 moves");
+        if (this.checkRow(row)) return true;
+        if (this.checkColumn(col)) return true;
+        if (this.checkDiagonal()) return true;
+        if (this.checkMiniBoard(row, col)) return true;
+        if (this.moveNumber === 16) {
+            console.log("end after 16 moves, and it's DRAW!!");
+            return true;
+        }
+        return false
+    },
+
+    checkRow(row) {
+        if (this.board[row][0] === this.currentPlayer
+            && this.board[row][1] === this.currentPlayer
+            && this.board[row][2] === this.currentPlayer
+            && this.board[row][3] === this.currentPlayer
+        ) {
+            updateGameInfo(`${this.currentPlayer} WINS!`);
+            lightUpRow(row);
+            return true;
+        }
+        else return false;
+    },
+
+    checkColumn(col) {
+      if (this.board[0][col] === this.currentPlayer
+          && this.board[1][col] === this.currentPlayer
+          && this.board[2][col] === this.currentPlayer
+          && this.board[3][col] === this.currentPlayer
+      ) {
+          updateGameInfo(`${this.currentPlayer} WINS!`);
+          lightUpColumn(col);
+          return true;
       }
+      else return false;
+    },
+
+    checkDiagonal() {
+        if (this.board[0][0] === this.currentPlayer
+            && this.board[1][1] === this.currentPlayer
+            && this.board[2][2] === this.currentPlayer
+            && this.board[3][3] === this.currentPlayer
+        ) {
+            updateGameInfo(`${this.currentPlayer} WINS!`);
+            lightUpDiagonal("first");
+            return true;
+        }
+        if (this.board[3][0] === this.currentPlayer
+            && this.board[2][1] === this.currentPlayer
+            && this.board[1][2] === this.currentPlayer
+            && this.board[0][3] === this.currentPlayer
+        ) {
+            updateGameInfo(`${this.currentPlayer} WINS!`);
+            lightUpDiagonal("second");
+            return true;
+        }
+        return false;
+    },
+
+    checkMiniBoard(row, col) {
+        let rowOffset = 0;
+        let colOffset = 0;
+        if (col >= 2) {
+            colOffset = 2;
+        }
+        if (row >= 2) {
+            rowOffset = 2
+        }
+        console.log(`rowOffset: ${rowOffset}, colOffset: ${colOffset}`)
+        for (let i=0; i<2; ++i) {
+            for (let j=0; j<2; ++j) {
+                if (this.board[i+rowOffset][j+colOffset] != this.currentPlayer) return false;
+            }
+        }
+        updateGameInfo(`${this.currentPlayer} WINS!`);
+        lightUpBoard(row, col);
+        return true;
     }
+
 }
 
 function handleGridClick(event) {
@@ -104,19 +182,69 @@ function updateButton(row, col, newContent) {
     }
 }
 
-function updateCurrentPlayer() {
-    const currentPlayer = document.querySelector(`.current-player`);
-    currentPlayer.textContent = `Current Player: ${gameState.currentPlayer}`;
+function updateGameInfo(information) {
+    const gameInfo = document.querySelector(`.game-info`);
+    gameInfo.textContent = information;
 }
 
 function updateCurrentBoard(currentBoard) {
-  const miniBoards = document.querySelectorAll(`.mini-board`);
-  miniBoards.forEach(board => board.style.border = "0px");
+  clearBoards();
   if (currentBoard === "All") {
+    const miniBoards = document.querySelectorAll(`.mini-board`);
     miniBoards.forEach(board => board.style.border = "2px, rgb(116, 41, 145), solid");
   }
   else {
     const board = document.querySelector(`.mini-board[data-number="${currentBoard}"]`);
     board.style.border = "2px, rgb(116, 41, 145), solid";
   }
+}
+
+function clearBoards() {
+    const miniBoards = document.querySelectorAll(`.mini-board`);
+    miniBoards.forEach(board => board.style.border = "0px");
+}
+
+function lightUpRow(row) {
+    const fields = document.querySelectorAll(`.field[data-row="${row}"]`);
+    applyLightUp(fields);
+}
+
+function lightUpColumn(col) {
+  const fields = document.querySelectorAll(`.field[data-col="${col}"]`);
+  applyLightUp(fields);
+}
+
+function lightUpDiagonal(type) {
+    let fields = [];
+    for (let i=0; i<4; ++i) {
+      fields.push(document.querySelector(`.field[data-row="${i}"][data-col="${type == "first" ? i : 3-i}"]`));
+    }
+    applyLightUp(fields);
+}
+
+function lightUpBoard(row, col) {
+    let rowOffset = 0;
+    let colOffset = 0;
+    if (col >= 2) {
+        colOffset = 2;
+    }
+    if (row >= 2) {
+        rowOffset = 2
+    }
+    let fields = [];
+    for (let i=0; i<2; ++i) {
+        for (let j=0; j<2; ++j) {
+            fields.push(document.querySelector(`.field[data-row="${i + rowOffset}"][data-col="${j + colOffset}"]`));
+        }
+    }
+    applyLightUp(fields);
+}
+
+
+function applyLightUp(fields) {
+  fields.forEach(field => {
+    field.style.backgroundColor = "rgb(57, 33, 67)";
+    field.style.border = "2px, rgb(116, 41, 145), solid";
+    field.style.color = "rgb(116, 41, 145)";
+  });
 }

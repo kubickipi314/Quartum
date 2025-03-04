@@ -1,5 +1,5 @@
 body {
-  font-family: "Open Sans";
+  font-family: "Open Sans", serif;
   color: rgb(183, 183, 183);
   background-color: rgb(32, 32, 32);
   margin: 0;
@@ -48,7 +48,7 @@ main {
   align-items: center;
 }
 
-.current-player {
+.game-info {
   font-size: 3vh;
   font-weight: 600;
   margin-bottom: 1vh;
