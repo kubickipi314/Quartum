@@ -1,20 +1,20 @@
 # 🔮Quartum
 
 ### Project
-This is the project of minimalistic web game written\
+This is the project of minimalistic web game written
 in JavaScript and CSS. You can find it [here](https://kubickipi314.github.io/Quartum/).
 
 ### Rules
-It is a simple tic-tac-toe based game. Players place their signs\
-on one of four little 2x2 boards, to decide where their adversary\
-is teleported. The winner is one who connects four signs in a line\
+It is a simple tic-tac-toe based game. Players place their signs
+on one of four little 2x2 boards, to decide where their adversary
+is teleported. The winner is one who connects four signs in a line
 or fill the little board.
 
 ### Idea
-The idea is inspired by 9x9 tic-tac-toe version with\
+The idea is inspired by 9x9 tic-tac-toe version with
 similar rule-set although more complex and long to play.
 
 ### Name
-Quartum is the fusion of words Quart and Quantum, as everything\
-is four-based and fractioning together with teleporation\
+Quartum is the fusion of words Quart and Quantum, as everything
+is four-based and fractioning together with teleporation
 reminds quantum mechanics🔮.
