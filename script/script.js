@@ -2,6 +2,9 @@
 
 const buttons = document.querySelectorAll('.field');
 
+document.querySelector('.menu-icon').addEventListener('click', () => {
+    alert('Menu Icon clicked!');
+});
 
 let gameState = {
     currentPlayer: "X",
@@ -144,7 +147,6 @@ let gameState = {
         if (row >= 2) {
             rowOffset = 2
         }
-        console.log(`rowOffset: ${rowOffset}, colOffset: ${colOffset}`)
         for (let i=0; i<2; ++i) {
             for (let j=0; j<2; ++j) {
                 if (this.board[i+rowOffset][j+colOffset] != this.currentPlayer) return false;
@@ -248,9 +250,12 @@ function lightUpBoard(row, col) {
 
 
 function applyLightUp(fields) {
-  fields.forEach(field => {
-    field.style.backgroundColor = "rgb(57, 33, 67)";
-    field.style.border = "2px, rgb(116, 41, 145), solid";
-    field.style.color = "rgb(116, 41, 145)";
-  });
+    fields.forEach((field, index) => {
+        setTimeout(() => {
+            field.style.backgroundColor = "rgb(57, 33, 67)";
+            field.style.border = "2px, rgb(116, 41, 145), solid";
+            field.style.color = "rgb(116, 41, 145)";
+            console.log(index);
+        }, 100 * index + 110);
+    });
 }
