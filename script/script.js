@@ -37,13 +37,14 @@ let gameState = {
         this.moveNumber += 1;
         console.log(`${this.moveNumber} moves made`);
         this.board[row][col] = this.currentPlayer;
-        updateButton(row, col, this.currentPlayer);
         
         if (this.checkEnd(row, col)) {
           clearBoards();
+          updateButton(row, col, this.currentPlayer);
           return;
         }
 
+        updateButton(row, col, this.currentPlayer);
         this.swapPlayer();
         this.setCurrentBoard(row, col);
     },
@@ -80,7 +81,7 @@ let gameState = {
         if (this.checkDiagonal()) return true;
         if (this.checkMiniBoard(row, col)) return true;
         if (this.moveNumber === 16) {
-            console.log("end after 16 moves, and it's DRAW!!");
+            updateGameInfo("It's DRAW!")
             return true;
         }
         return false
@@ -179,6 +180,11 @@ function updateButton(row, col, newContent) {
     const button = document.querySelector(`.field[data-row="${row}"][data-col="${col}"]`);
     if (button) {
         button.textContent = newContent;
+        const color = button.style.color;
+        button.style.color = "rgb(116, 41, 145)";
+        setTimeout(() => {
+            button.style.color = color;
+        }, 100);
     }
 }
 
