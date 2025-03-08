@@ -199,11 +199,11 @@ function updateCurrentBoard(currentBoard) {
   clearBoards();
   if (currentBoard === "All") {
     const miniBoards = document.querySelectorAll(`.mini-board`);
-    miniBoards.forEach(board => board.style.border = "2px, rgb(116, 41, 145), solid");
+    miniBoards.forEach(board => board.style.border = "3px solid rgb(116, 41, 145)");
   }
   else {
     const board = document.querySelector(`.mini-board[data-number="${currentBoard}"]`);
-    board.style.border = "2px, rgb(116, 41, 145), solid";
+    board.style.border = "3px solid rgb(116, 41, 145)";
   }
 }
 
@@ -253,7 +253,7 @@ function applyLightUp(fields) {
     fields.forEach((field, index) => {
         setTimeout(() => {
             field.style.backgroundColor = "rgb(57, 33, 67)";
-            field.style.border = "2px, rgb(116, 41, 145), solid";
+            field.style.border = "2px solid rgb(116, 41, 145)";
             field.style.color = "rgb(116, 41, 145)";
             console.log(index);
         }, 100 * index + 110);

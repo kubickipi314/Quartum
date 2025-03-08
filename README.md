@@ -2,7 +2,7 @@
 
 ### Project
 This is the project of minimalistic web game written
-in JavaScript and CSS. You can find it [here](https://kubickipi314.github.io/Quartum/).
+in JavaScript and CSS. You can play it [here](https://kubickipi314.github.io/Quartum/).
 
 ### Rules
 It is a simple tic-tac-toe based game. Players place their signs
