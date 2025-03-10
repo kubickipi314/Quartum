@@ -181,11 +181,19 @@ function tryMakeMove(row, col) {
 function updateButton(row, col, newContent) {
     const button = document.querySelector(`.field[data-row="${row}"][data-col="${col}"]`);
     if (button) {
-        button.textContent = newContent;
-        const color = button.style.color;
-        button.style.color = "rgb(116, 41, 145)";
+      const img = document.createElement('img');
+        if (newContent === "O") {
+            img.src = 'icons/ball.svg';
+            img.className = 'sign';
+            img.alt = 'ball';
+        } else {
+          img.src = 'icons/ex.svg';
+          img.className = 'sign';
+          img.alt = 'ex';
+        }
+        button.appendChild(img);
         setTimeout(() => {
-            button.style.color = color;
+            
         }, 100);
     }
 }
@@ -252,9 +260,8 @@ function lightUpBoard(row, col) {
 function applyLightUp(fields) {
     fields.forEach((field, index) => {
         setTimeout(() => {
-            field.style.backgroundColor = "rgb(57, 33, 67)";
-            field.style.border = "2px solid rgb(116, 41, 145)";
-            field.style.color = "rgb(116, 41, 145)";
+            field.style.backgroundColor = "rgb(29, 29, 29)";
+            field.style.border = "3px solid rgb(116, 41, 145)";
             console.log(index);
         }, 100 * index + 110);
     });
