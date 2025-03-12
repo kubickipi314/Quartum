@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="ex.svg"
+   inkscape:export-filename="/home/peter/Documents/OTHER/Projects/Quanrtum/icons/icon.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="10.967178"
+     inkscape:cx="24.983637"
+     inkscape:cy="28.038206"
+     inkscape:window-width="1850"
+     inkscape:window-height="1009"
+     inkscape:window-x="70"
+     inkscape:window-y="34"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     units="px"
+     width="51mm" />
+  <defs
+     id="defs2">
+    <rect
+       x="-170.51695"
+       y="134.41425"
+       width="279.4928"
+       height="136.30362"
+       id="rect2102" />
+    <rect
+       x="-170.51695"
+       y="134.41425"
+       width="279.4928"
+       height="136.30362"
+       id="rect2102-8" />
+    <rect
+       x="-170.51695"
+       y="134.41425"
+       width="279.4928"
+       height="136.30362"
+       id="rect2102-8-0" />
+    <rect
+       x="-170.51695"
+       y="134.41425"
+       width="279.4928"
+       height="136.30362"
+       id="rect2102-4" />
+    <rect
+       x="-170.51695"
+       y="134.41425"
+       width="279.4928"
+       height="136.30362"
+       id="rect2102-8-3" />
+    <rect
+       x="-170.51695"
+       y="134.41425"
+       width="279.4928"
+       height="136.30362"
+       id="rect2102-8-0-7" />
+    <rect
+       x="-170.51695"
+       y="134.41425"
+       width="279.4928"
+       height="136.30362"
+       id="rect2102-8-3-6" />
+    <rect
+       x="-170.51695"
+       y="134.41425"
+       width="279.4928"
+       height="136.30362"
+       id="rect2102-8-3-0" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.71639427,0,0,0.73055307,161.21313,120.51908)"
+       id="text2100-1-1-7"
+       style="font-size:28px;font-family:Kinnari;-inkscape-font-specification:Kinnari;text-align:center;white-space:pre;shape-inside:url(#rect2102-8-3-6);fill:#e6e6e6;stroke:#e6e6e6;stroke-width:0.691143;stroke-miterlimit:3.9;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/peter/Documents/OTHER/Projects/QuantumQuart/quantum-quart.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#800080;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:3.9"
+       id="rect4945"
+       width="1.9264389"
+       height="10.96497"
+       x="-0.97636735"
+       y="3.4599605"
+       ry="0"
+       transform="rotate(-45.31109)" />
+    <rect
+       style="fill:#800080;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:3.9"
+       id="rect4945-1"
+       width="1.9264389"
+       height="10.96497"
+       x="-9.9052811"
+       y="-5.5664425"
+       ry="0"
+       transform="matrix(-0.70325711,-0.71093561,-0.71093561,0.70325711,0,0)" />
+  </g>
+</svg>

@@ -21,8 +21,8 @@ document.querySelector('.new-game').addEventListener('click', () => {
 let gameMotive = {
     xIdx: 0,
     oIdx: 0,
-    xMotives: ["mini", "blured"],
-    oMotives: ["mini", "blured"],
+    xMotives: ["mini", "blured", "normal"],
+    oMotives: ["mini", "blured", "normal"],
 
     getX() {
         return this.xMotives[this.xIdx];
