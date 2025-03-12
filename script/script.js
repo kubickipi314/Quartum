@@ -6,6 +6,11 @@ document.querySelector('.menu-icon').addEventListener('click', () => {
     alert('Menu Icon clicked!');
 });
 
+let gameMotive = {
+    xMotive: "mini",
+    oMotive: "mini"
+}
+
 let gameState = {
     currentPlayer: "X",
     currentBoard: "All",
@@ -183,11 +188,11 @@ function updateButton(row, col, newContent) {
     if (button) {
       const img = document.createElement('img');
         if (newContent === "O") {
-            img.src = 'icons/ball.svg';
+            img.src = 'motives/mini/ball.svg';
             img.className = 'sign';
             img.alt = 'ball';
         } else {
-          img.src = 'icons/ex.svg';
+          img.src = 'motives/mini/ex.svg';
           img.className = 'sign';
           img.alt = 'ex';
         }
