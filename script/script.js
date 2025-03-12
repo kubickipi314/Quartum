@@ -6,12 +6,40 @@ document.querySelector('.menu-icon').addEventListener('click', () => {
     alert('Menu Icon clicked!');
 });
 
+document.querySelector('.new-game').addEventListener('click', () => {
+    startNewGame();
+});
+
 let gameMotive = {
     xMotive: "mini",
     oMotive: "mini"
 }
 
+let gameResult = {
+    xResult: 0,
+    oResult: 0,
+
+    updateWin(winner) {
+        console.log(winner)
+        if (winner == "X") {
+            this.xResult += 1;
+        }
+        else {
+            this.oResult += 1;
+        }
+        console.log(this.xResult + " " + this.oResult);
+        updateScore(this.xResult, this.oResult);
+    },
+
+    updateDraw() {
+        this.xResult++;
+        this.oResult++;
+        updateScore(this.xResult, this.oResult);
+    }
+}
+
 let gameState = {
+    gameEnded: false,
     currentPlayer: "X",
     currentBoard: "All",
     moveNumber: 0,
@@ -21,6 +49,20 @@ let gameState = {
         ["", "", "", ""],
         ["", "", "", ""]
     ],
+
+    resetGameState() {
+        this.gameEnded = false;
+        if (this.currentPlayer == "X") this.currentPlayer = "O";
+        else this.currentPlayer = "X";
+        this.currentBoard = "All";
+        this.moveNumber = 0;
+        this.board = [
+            ["", "", "", ""],
+            ["", "", "", ""],
+            ["", "", "", ""],
+            ["", "", "", ""]
+        ];
+    },
 
     swapPlayer() {
         if (this.currentPlayer === "X")
@@ -43,7 +85,6 @@ let gameState = {
 
     makeMove(row, col) {
         this.moveNumber += 1;
-        console.log(`${this.moveNumber} moves made`);
         this.board[row][col] = this.currentPlayer;
         
         if (this.checkEnd(row, col)) {
@@ -89,7 +130,9 @@ let gameState = {
         if (this.checkDiagonal()) return true;
         if (this.checkMiniBoard(row, col)) return true;
         if (this.moveNumber === 16) {
-            updateGameInfo("It's DRAW!")
+            updateGameInfo("It's DRAW!");
+            gameState.gameEnded = true;
+            gameResult.updateDraw();
             return true;
         }
         return false
@@ -101,7 +144,7 @@ let gameState = {
             && this.board[row][2] === this.currentPlayer
             && this.board[row][3] === this.currentPlayer
         ) {
-            updateGameInfo(`${this.currentPlayer} WINS!`);
+            this.endWinning();
             lightUpRow(row);
             return true;
         }
@@ -114,7 +157,7 @@ let gameState = {
           && this.board[2][col] === this.currentPlayer
           && this.board[3][col] === this.currentPlayer
       ) {
-          updateGameInfo(`${this.currentPlayer} WINS!`);
+          this.endWinning();
           lightUpColumn(col);
           return true;
       }
@@ -128,6 +171,7 @@ let gameState = {
             && this.board[3][3] === this.currentPlayer
         ) {
             updateGameInfo(`${this.currentPlayer} WINS!`);
+            gameResult.updateWin(this.currentPlayer);
             lightUpDiagonal("first");
             return true;
         }
@@ -136,7 +180,7 @@ let gameState = {
             && this.board[1][2] === this.currentPlayer
             && this.board[0][3] === this.currentPlayer
         ) {
-            updateGameInfo(`${this.currentPlayer} WINS!`);
+            this.endWinning();
             lightUpDiagonal("second");
             return true;
         }
@@ -157,12 +201,19 @@ let gameState = {
                 if (this.board[i+rowOffset][j+colOffset] != this.currentPlayer) return false;
             }
         }
-        updateGameInfo(`${this.currentPlayer} WINS!`);
+        this.endWinning()
         lightUpBoard(row, col);
         return true;
+    },
+
+    endWinning() {
+        updateGameInfo(`${this.currentPlayer} WINS!`);
+        this.gameEnded = true;
+        gameResult.updateWin(this.currentPlayer);
     }
 
 }
+
 
 function handleGridClick(event) {
     const row = event.target.dataset.row;
@@ -176,9 +227,11 @@ buttons.forEach(button => {
 });
 
 function tryMakeMove(row, col) {
-    if (gameState.isFieldAvl(row, col)) {
-        if (gameState.isFieldFree(row, col)) {
-            gameState.makeMove(row, col);
+    if (!gameState.gameEnded){
+        if (gameState.isFieldAvl(row, col)) {
+            if (gameState.isFieldFree(row, col)) {
+                gameState.makeMove(row, col);
+            }
         }
     }
 }
@@ -267,7 +320,39 @@ function applyLightUp(fields) {
         setTimeout(() => {
             field.style.backgroundColor = "rgb(29, 29, 29)";
             field.style.border = "3px solid rgb(116, 41, 145)";
-            console.log(index);
         }, 100 * index + 110);
     });
+}
+
+function updateScore(xResult, yResult) {
+    const score = document.querySelector('.score-number');
+    score.textContent = `${xResult} : ${yResult}`;
+
+    const newGame = document.querySelector('.new-game');
+    newGame.style.backgroundColor = "rgb(116, 41, 145)"
+}
+
+function startNewGame() {
+    if (gameState.gameEnded) {
+        gameState.resetGameState();
+        const fields = document.querySelectorAll(`.field`);
+        fields.forEach((field, index) => {
+            setTimeout(() => {
+                field.textContent = "";
+                field.style.backgroundColor = "rgb(47, 47, 47)";
+                field.style.border = "3px solid rgb(22, 22, 22)";
+            }, 100 * index + 110);
+        });
+
+        const boards = document.querySelectorAll(`.mini-board`);
+        boards.forEach((board, index) => {
+            setTimeout(() => {
+                board.style.border = "3px solid rgb(116, 41, 145)";
+            }, 400 * index + 110);
+        });
+
+        updateGameInfo(`Current Player: ${gameState.currentPlayer}`);
+        const newGame = document.querySelector('.new-game');
+        newGame.style.backgroundColor = "rgb(35, 35, 35)"
+    }
 }
