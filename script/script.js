@@ -6,13 +6,39 @@ document.querySelector('.menu-icon').addEventListener('click', () => {
     alert('Menu Icon clicked!');
 });
 
+document.querySelector(`.score-sign[alt="ex"]`).addEventListener('click', () => {
+  changeXMotive();
+});
+
+document.querySelector(`.score-sign[alt="ball"]`).addEventListener('click', () => {
+  changeOMotive();
+});
+
 document.querySelector('.new-game').addEventListener('click', () => {
     startNewGame();
 });
 
 let gameMotive = {
-    xMotive: "mini",
-    oMotive: "mini"
+    xIdx: 0,
+    oIdx: 0,
+    xMotives: ["mini", "blured"],
+    oMotives: ["mini", "blured"],
+
+    getX() {
+        return this.xMotives[this.xIdx];
+    },
+
+    getO() {
+      return this.oMotives[this.oIdx];
+    },
+
+    newXMotive() {
+      this.xIdx = (this.xIdx + 1)%this.xMotives.length;
+    },
+
+    newOMotive() {
+      this.oIdx = (this.oIdx + 1)%this.oMotives.length;
+    }
 }
 
 let gameResult = {
@@ -241,11 +267,11 @@ function updateButton(row, col, newContent) {
     if (button) {
       const img = document.createElement('img');
         if (newContent === "O") {
-            img.src = 'motives/mini/ball.svg';
+            img.src = `motives/${gameMotive.getO()}/ball.svg`;
             img.className = 'sign';
             img.alt = 'ball';
         } else {
-          img.src = 'motives/mini/ex.svg';
+          img.src = `motives/${gameMotive.getX()}/ex.svg`;
           img.className = 'sign';
           img.alt = 'ex';
         }
@@ -355,4 +381,31 @@ function startNewGame() {
         const newGame = document.querySelector('.new-game');
         newGame.style.backgroundColor = "rgb(35, 35, 35)"
     }
+}
+
+function changeXMotive() {
+    gameMotive.newXMotive();
+    const imgs = document.querySelectorAll('img.sign[alt="ex"]');
+    imgs.forEach((img, index) => {
+        setTimeout(() => {
+            console.log(gameMotive.getX());
+            img.src = `motives/${gameMotive.getX()}/ex.svg`;
+        }, 100 * index);
+    });
+
+    const img = document.querySelector('img.score-sign[alt="ex"]');
+    img.src = `motives/${gameMotive.getX()}/ex.svg`;
+}
+
+function changeOMotive() {
+    gameMotive.newOMotive();
+    const imgs = document.querySelectorAll('img.sign[alt="ball"]');
+    imgs.forEach((img, index) => {
+        setTimeout(() => {
+            img.src = `motives/${gameMotive.getO()}/ball.svg`;
+        }, 100 * index);
+    });
+
+    const img = document.querySelector('img.score-sign[alt="ball"]');
+    img.src = `motives/${gameMotive.getO()}/ball.svg`;
 }
