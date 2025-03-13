@@ -1,62 +1,22 @@
+import { setupMotiveEvents } from './motive.js';
+setupMotiveEvents();
 
+import { gameMotive } from './motive.js';
 
-const buttons = document.querySelectorAll('.field');
+import { gameResult } from './result.js';
+
+document.querySelector('.new-game').addEventListener('click', () => {
+  startNewGame();
+});
+
+document.querySelectorAll('.field').forEach(button => {
+  button.addEventListener('click', handleGridClick);
+});
 
 document.querySelector('.menu-icon').addEventListener('click', () => {
     alert('Menu Icon clicked!');
 });
 
-document.querySelector(`.score-sign[alt="ex"]`).addEventListener('click', () => {
-    changeMotive("ex");
-});
-
-document.querySelector(`.score-sign[alt="ball"]`).addEventListener('click', () => {
-    changeMotive("ball");
-});
-
-document.querySelector('.new-game').addEventListener('click', () => {
-    startNewGame();
-});
-
-let gameMotive = {
-    xIdx: 0,
-    oIdx: 0,
-    xMotives: ["normal", "mini", "blured"],
-    oMotives: ["normal", "mini", "blured"],
-
-    get(sign) {
-        if (sign == "X") return this.xMotives[this.xIdx];
-        else return this.oMotives[this.oIdx];
-    },
-
-    newMotive(sign) {
-        if (sign == "X")this.xIdx = (this.xIdx + 1)%this.xMotives.length;
-        else this.oIdx = (this.oIdx + 1)%this.oMotives.length;
-    },
-}
-
-let gameResult = {
-    xResult: 0,
-    oResult: 0,
-
-    updateWin(winner) {
-        console.log(winner)
-        if (winner == "ex") {
-            this.xResult += 1;
-        }
-        else {
-            this.oResult += 1;
-        }
-        console.log(this.xResult + " " + this.oResult);
-        updateScore(this.xResult, this.oResult);
-    },
-
-    updateDraw() {
-        this.xResult++;
-        this.oResult++;
-        updateScore(this.xResult, this.oResult);
-    }
-}
 
 let gameState = {
     gameEnded: false,
@@ -240,9 +200,6 @@ function handleGridClick(event) {
     tryMakeMove(row, col);
 }
 
-buttons.forEach(button => {
-    button.addEventListener('click', handleGridClick);
-});
 
 function tryMakeMove(row, col) {
     if (!gameState.gameEnded){
@@ -259,13 +216,13 @@ function updateButton(row, col, newContent) {
     if (button) {
       const img = document.createElement('img');
         if (newContent === "O") {
-            img.src = `motives/${gameMotive.get("ball")}/ball.svg`;
+            img.src = `motives/${gameMotive.get("O")}/O.svg`;
             img.className = 'sign';
-            img.alt = 'ball';
+            img.alt = 'O';
         } else {
-          img.src = `motives/${gameMotive.get("ex")}/ex.svg`;
+          img.src = `motives/${gameMotive.get("X")}/X.svg`;
           img.className = 'sign';
-          img.alt = 'ex';
+          img.alt = 'X';
         }
         button.appendChild(img);
         setTimeout(() => {
@@ -342,14 +299,6 @@ function applyLightUp(fields) {
     });
 }
 
-function updateScore(xResult, yResult) {
-    const score = document.querySelector('.score-number');
-    score.textContent = `${xResult} : ${yResult}`;
-
-    const newGame = document.querySelector('.new-game');
-    newGame.style.backgroundColor = "rgb(116, 41, 145)"
-}
-
 function startNewGame() {
     if (gameState.gameEnded) {
         gameState.resetGameState();
@@ -373,18 +322,4 @@ function startNewGame() {
         const newGame = document.querySelector('.new-game');
         newGame.style.backgroundColor = "rgb(35, 35, 35)"
     }
-}
-
-function changeMotive(sign) {
-    gameMotive.newMotive(sign);
-    const imgs = document.querySelectorAll(`img.sign[alt="${sign}"]`);
-    imgs.forEach((img, index) => {
-        setTimeout(() => {
-            console.log(gameMotive.get(sign));
-            img.src = `motives/${gameMotive.get(sign)}/${sign}.svg`;
-        }, 100 * index);
-    });
-
-    const img = document.querySelector(`img.score-sign[alt="${sign}"]`);
-    img.src = `motives/${gameMotive.get(sign)}/${sign}.svg`;
 }
