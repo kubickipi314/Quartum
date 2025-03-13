@@ -7,11 +7,11 @@ document.querySelector('.menu-icon').addEventListener('click', () => {
 });
 
 document.querySelector(`.score-sign[alt="ex"]`).addEventListener('click', () => {
-  changeXMotive();
+    changeMotive("ex");
 });
 
 document.querySelector(`.score-sign[alt="ball"]`).addEventListener('click', () => {
-  changeOMotive();
+    changeMotive("ball");
 });
 
 document.querySelector('.new-game').addEventListener('click', () => {
@@ -24,21 +24,15 @@ let gameMotive = {
     xMotives: ["normal", "mini", "blured"],
     oMotives: ["normal", "mini", "blured"],
 
-    getX() {
-        return this.xMotives[this.xIdx];
+    get(sign) {
+        if (sign == "X") return this.xMotives[this.xIdx];
+        else return this.oMotives[this.oIdx];
     },
 
-    getO() {
-      return this.oMotives[this.oIdx];
+    newMotive(sign) {
+        if (sign == "X")this.xIdx = (this.xIdx + 1)%this.xMotives.length;
+        else this.oIdx = (this.oIdx + 1)%this.oMotives.length;
     },
-
-    newXMotive() {
-      this.xIdx = (this.xIdx + 1)%this.xMotives.length;
-    },
-
-    newOMotive() {
-      this.oIdx = (this.oIdx + 1)%this.oMotives.length;
-    }
 }
 
 let gameResult = {
@@ -47,7 +41,7 @@ let gameResult = {
 
     updateWin(winner) {
         console.log(winner)
-        if (winner == "X") {
+        if (winner == "ex") {
             this.xResult += 1;
         }
         else {
@@ -157,7 +151,7 @@ let gameState = {
         if (this.checkMiniBoard(row, col)) return true;
         if (this.moveNumber === 16) {
             updateGameInfo("It's DRAW!");
-            this.gameState.gameEnded = true;
+            this.gameEnded = true;
             gameResult.updateDraw();
             return true;
         }
@@ -196,8 +190,7 @@ let gameState = {
             && this.board[2][2] === this.currentPlayer
             && this.board[3][3] === this.currentPlayer
         ) {
-            updateGameInfo(`${this.currentPlayer} WINS!`);
-            gameResult.updateWin(this.currentPlayer);
+            this.endWinning();
             lightUpDiagonal("first");
             return true;
         }
@@ -237,7 +230,6 @@ let gameState = {
         this.gameEnded = true;
         gameResult.updateWin(this.currentPlayer);
     }
-
 }
 
 
@@ -267,11 +259,11 @@ function updateButton(row, col, newContent) {
     if (button) {
       const img = document.createElement('img');
         if (newContent === "O") {
-            img.src = `motives/${gameMotive.getO()}/ball.svg`;
+            img.src = `motives/${gameMotive.get("ball")}/ball.svg`;
             img.className = 'sign';
             img.alt = 'ball';
         } else {
-          img.src = `motives/${gameMotive.getX()}/ex.svg`;
+          img.src = `motives/${gameMotive.get("ex")}/ex.svg`;
           img.className = 'sign';
           img.alt = 'ex';
         }
@@ -383,29 +375,16 @@ function startNewGame() {
     }
 }
 
-function changeXMotive() {
-    gameMotive.newXMotive();
-    const imgs = document.querySelectorAll('img.sign[alt="ex"]');
+function changeMotive(sign) {
+    gameMotive.newMotive(sign);
+    const imgs = document.querySelectorAll(`img.sign[alt="${sign}"]`);
     imgs.forEach((img, index) => {
         setTimeout(() => {
-            console.log(gameMotive.getX());
-            img.src = `motives/${gameMotive.getX()}/ex.svg`;
+            console.log(gameMotive.get(sign));
+            img.src = `motives/${gameMotive.get(sign)}/${sign}.svg`;
         }, 100 * index);
     });
 
-    const img = document.querySelector('img.score-sign[alt="ex"]');
-    img.src = `motives/${gameMotive.getX()}/ex.svg`;
-}
-
-function changeOMotive() {
-    gameMotive.newOMotive();
-    const imgs = document.querySelectorAll('img.sign[alt="ball"]');
-    imgs.forEach((img, index) => {
-        setTimeout(() => {
-            img.src = `motives/${gameMotive.getO()}/ball.svg`;
-        }, 100 * index);
-    });
-
-    const img = document.querySelector('img.score-sign[alt="ball"]');
-    img.src = `motives/${gameMotive.getO()}/ball.svg`;
+    const img = document.querySelector(`img.score-sign[alt="${sign}"]`);
+    img.src = `motives/${gameMotive.get(sign)}/${sign}.svg`;
 }
