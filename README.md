@@ -7,8 +7,13 @@ in JavaScript and CSS. You can play it [here](https://kubickipi314.github.io/Qua
 ### Rules
 It is a simple tic-tac-toe based game. Players place their signs
 on one of four little 2x2 boards, to decide where their adversary
-is teleported. The winner is one who connects four signs in a line
-or fill the little board.
+is teleported (taken field points to one of the four boards). 
+The winner is one who connects four signs in a line or fill
+entire small board.
+
+### Motives
+Players can change motives of their signs clicking
+the icons in the score section.
 
 ### Idea
 The idea is inspired by 9x9 tic-tac-toe version with
