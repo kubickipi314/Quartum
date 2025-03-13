@@ -21,8 +21,8 @@ document.querySelector('.new-game').addEventListener('click', () => {
 let gameMotive = {
     xIdx: 0,
     oIdx: 0,
-    xMotives: ["mini", "blured", "normal"],
-    oMotives: ["mini", "blured", "normal"],
+    xMotives: ["normal", "mini", "blured"],
+    oMotives: ["normal", "mini", "blured"],
 
     getX() {
         return this.xMotives[this.xIdx];
@@ -157,7 +157,7 @@ let gameState = {
         if (this.checkMiniBoard(row, col)) return true;
         if (this.moveNumber === 16) {
             updateGameInfo("It's DRAW!");
-            gameState.gameEnded = true;
+            this.gameState.gameEnded = true;
             gameResult.updateDraw();
             return true;
         }
